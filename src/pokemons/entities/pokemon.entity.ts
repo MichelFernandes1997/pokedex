@@ -1,10 +1,19 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, createConnection } from 'mongoose';
+import { ConfigModule } from '@nestjs/config';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const autoIncrement = require('mongoose-auto-increment');
 
+ConfigModule.forRoot();
+
 const connection = createConnection(
-  `mongodb://teste:teste123@mongo:27017/pokedex`,
+  `${process.env.ENV === 'development' ? 'mongodb' : 'mongodb+srv'}://${
+    process.env.DB_USER
+  }:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
 );
 
 autoIncrement.initialize(connection);

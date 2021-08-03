@@ -4,11 +4,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { PokemonsModule } from './pokemons/pokemons.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     MongooseModule.forRoot(
-      `mongodb://teste:teste123@mongo:27017/pokedex`,
+      `${process.env.ENV === 'development' ? 'mongodb' : 'mongodb+srv'}://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true

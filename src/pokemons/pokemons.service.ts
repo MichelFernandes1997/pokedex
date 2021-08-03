@@ -11,22 +11,22 @@ export class PokemonsService {
     @InjectModel(Pokemon.name) private pokemonModel: Model<PokemonDocument>,
   ) {}
 
-  create(createPokemonDto: CreatePokemonDto) {
-    const pokemon = new this.pokemonModel(createPokemonDto);
+  async create(createPokemonDto: CreatePokemonDto) {
+    const pokemon = await new this.pokemonModel(createPokemonDto);
 
-    return pokemon.save();
+    return await pokemon.save();
   }
 
-  findAll() {
-    return this.pokemonModel.find({}, { _id: 1, name: 1 });
+  async findAll() {
+    return await this.pokemonModel.find({}, { _id: 1, name: 1 });
   }
 
-  findOne(id: string) {
-    return this.pokemonModel.findById(id);
+  async findOne(id: string) {
+    return await this.pokemonModel.findById(id);
   }
 
-  update(id: string, updatePokemonDto: UpdatePokemonDto) {
-    return this.pokemonModel.findByIdAndUpdate(
+  async update(id: string, updatePokemonDto: UpdatePokemonDto) {
+    return await this.pokemonModel.findByIdAndUpdate(
       {
         _id: id,
       },
@@ -39,8 +39,8 @@ export class PokemonsService {
     );
   }
 
-  remove(id: string) {
-    return this.pokemonModel
+  async remove(id: string) {
+    return await this.pokemonModel
       .deleteOne({
         _id: id,
       })

@@ -9,26 +9,26 @@ import { User, UserDocument } from './entities/user.entity';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  create(createUserDto: CreateUserDto) {
-    const user = new this.userModel(createUserDto);
+  async create(createUserDto: CreateUserDto) {
+    const user = await new this.userModel(createUserDto);
 
-    return user.save();
+    return await user.save();
   }
 
-  findAll() {
-    return this.userModel.find({}, { _id: 1, nickname: 1 });
+  async findAll() {
+    return await this.userModel.find({}, { _id: 1, nickname: 1 });
   }
 
-  findOne(id: string) {
-    return this.userModel.findById(id);
+  async findOne(id: string) {
+    return await this.userModel.findById(id);
   }
 
   async findByMail(mail: string) {
     return await this.userModel.findOne({ mail }).exec();
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
-    return this.userModel.findByIdAndUpdate(
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    return await this.userModel.findByIdAndUpdate(
       {
         _id: id,
       },
@@ -41,8 +41,8 @@ export class UsersService {
     );
   }
 
-  remove(id: string) {
-    return this.userModel
+  async remove(id: string) {
+    return await this.userModel
       .deleteOne({
         _id: id,
       })

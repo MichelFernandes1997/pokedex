@@ -7,43 +7,75 @@ import {
   Param,
   Delete,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { PokemonsService } from './pokemons.service';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import {
+  PokemonDeletedResponse,
+  PokemonDetailsResponse,
+  PokemonListResponse,
+} from 'src/doc/pokemon.response';
 
+@ApiBearerAuth()
+@ApiTags('pokemons')
 @Controller('pokemons')
 export class PokemonsController {
   constructor(private readonly pokemonsService: PokemonsService) {}
 
+  @ApiCreatedResponse({
+    type: PokemonDetailsResponse,
+  })
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createPokemonDto: CreatePokemonDto) {
-    return this.pokemonsService.create(createPokemonDto);
+  async create(@Body(new ValidationPipe()) createPokemonDto: CreatePokemonDto) {
+    return await this.pokemonsService.create(createPokemonDto);
   }
 
+  @ApiOkResponse({
+    type: [PokemonListResponse],
+  })
   @UseGuards(JwtAuthGuard)
   @Get()
-  findAll() {
-    return this.pokemonsService.findAll();
+  async findAll() {
+    return await this.pokemonsService.findAll();
   }
 
+  @ApiOkResponse({
+    type: PokemonDetailsResponse,
+  })
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pokemonsService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    return await this.pokemonsService.findOne(id);
   }
 
+  @ApiCreatedResponse({
+    type: PokemonDetailsResponse,
+  })
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePokemonDto: UpdatePokemonDto) {
-    return this.pokemonsService.update(id, updatePokemonDto);
+  async update(
+    @Param('id') id: string,
+    @Body(new ValidationPipe()) updatePokemonDto: UpdatePokemonDto,
+  ) {
+    return await this.pokemonsService.update(id, updatePokemonDto);
   }
 
+  @ApiOkResponse({
+    type: PokemonDeletedResponse,
+  })
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.pokemonsService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.pokemonsService.remove(id);
   }
 }

@@ -34,7 +34,8 @@ yarn
 
 ## Running the app
 
-####Atention
+###Atention
+
 1: You need the docker running on your OS
 2: You need are on the same directory of docker-compose.yml for running this command
 

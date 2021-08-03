@@ -34,9 +34,9 @@ yarn
 
 ## Running the app
 
-##Atention
+#Atention
 
-You need the docker running on your OS and be in the same directory of docker-compose.yml to run this command
+You need the docker and docker-compose installed on your system, docker running on your OS and be in the same directory of docker-compose.yml to run this command.
 
 ```bash
 # Docker-compose

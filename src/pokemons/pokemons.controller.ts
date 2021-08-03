@@ -12,7 +12,7 @@ import {
 import { PokemonsService } from './pokemons.service';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
@@ -23,7 +23,7 @@ import {
   PokemonDeletedResponse,
   PokemonDetailsResponse,
   PokemonListResponse,
-} from 'src/doc/pokemon.response';
+} from '../doc/pokemon.response';
 
 @ApiBearerAuth()
 @ApiTags('pokemons')

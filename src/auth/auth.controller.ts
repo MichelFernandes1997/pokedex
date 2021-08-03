@@ -2,7 +2,7 @@
 import { Controller, Post, UseGuards, Body } from '@nestjs/common';
 import { ApiCreatedResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
-import { UsersAuthResponse } from 'src/doc/users.response';
+import { UsersAuthResponse } from '../doc/users.response';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 

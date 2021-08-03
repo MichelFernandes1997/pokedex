@@ -10,9 +10,9 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiBearerAuth, ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
-import { UsersCreatedResponse } from 'src/doc/users.response';
+import { UsersCreatedResponse } from '../doc/users.response';
 
 @ApiBearerAuth()
 @ApiTags('users')

@@ -7,7 +7,7 @@ async function bootstrap() {
 
   const options = new DocumentBuilder()
     .setTitle('Pokedex api')
-    .setDescription('Api used by Pokemón games!')
+    .setDescription('Api used by Pokémon games!')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
